@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from '../components/layout'
+import Layout from '../components/Layout'
 import gifImage from '../assets/images/argos_side_photo_0.png';
 import { Link } from 'react-router-dom';
 
