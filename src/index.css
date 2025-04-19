@@ -1,0 +1,12 @@
+@font-face {
+    font-family: anurati;
+    src: url("../src/assets/fonts/anurati_regular.otf") format('opentype');
+
+}
+@import "tailwindcss";
+
+@theme{
+    --font-anurati: 'anurati';
+}
+
+/* Reset body margins and padding globally */
