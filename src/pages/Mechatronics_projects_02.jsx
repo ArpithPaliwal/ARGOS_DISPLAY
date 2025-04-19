@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Layout from '../components/layout'
+import Layout from '../components/Layout'
 
 const Mechatronics_projects_02 = () => {
   return (
