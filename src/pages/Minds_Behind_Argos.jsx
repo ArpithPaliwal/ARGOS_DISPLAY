@@ -10,12 +10,7 @@ const Minds_Behind_Argos = () => {
       designation: "( TEAM LEAD ) 21BEM1028",
       specialization: "Webdev,ROS2,Electronics,BMS,Design",
     },
-    {
-      photo: "/Minds_0f_ARGOS/DAKSH.jpg",
-      name: "Daksh Sharma",
-      designation: "21BEM1022",
-      specialization: "ROS2 , Design , Electronics",
-    },
+    
     {
       photo: "/Minds_0f_ARGOS/vinay.jpg",
       name: "Vinay Kumar Gupta ",
@@ -33,6 +28,12 @@ const Minds_Behind_Argos = () => {
       name: "Priyansh Verma",
       designation: "21BEM1016",
       specialization: "Research & Assembly & Design",
+    },
+    {
+      photo: "/Minds_0f_ARGOS/DAKSH.jpg",
+      name: "Daksh Sharma",
+      designation: "21BEM1022",
+      specialization: " Design ",
     },
     {
       photo: "/Minds_0f_ARGOS/dheeraj.jpg",
