@@ -2,12 +2,45 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+    <title>ARGOS Kiosk Mode</title>
+    <style>
+      /* Hide the cursor */
+      body {
+        cursor: none; /* Hide cursor */
+        user-select: none; /* Disable text selection */
+        -webkit-user-select: none; /* Disable text selection for WebKit browsers */
+        -ms-user-select: none; /* Disable text selection for MS browsers */
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
+
+    <script>
+      // Disable right-click (context menu)
+      document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+      });
+
+      // Disable F12, Ctrl+Shift+I, and other inspect tools
+      document.addEventListener('keydown', function (e) {
+        if (
+          e.key === 'F12' || // Disable F12
+          (e.ctrlKey && (e.key === 'I' || e.key === 'U')) // Disable Ctrl+Shift+I and Ctrl+U
+        ) {
+          e.preventDefault();
+        }
+      });
+
+      // Disable pinch-to-zoom on touch devices (for mobile/touchscreen kiosk mode)
+      window.addEventListener('wheel', function (e) {
+        if (e.ctrlKey) {
+          e.preventDefault(); // Prevent zooming with Ctrl+mouse wheel
+        }
+      }, { passive: false });
+    </script>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
