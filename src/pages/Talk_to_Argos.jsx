@@ -7,7 +7,7 @@ const Talk_to_Argos = () => {
   const [response, setResponse] = useState('')
   const [listening, setListening] = useState(false)
 
-  const openRouterKey = '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'
+  const openRouterKey = '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'
 
   const context = `
 You are ARGOS, an AI robot assistant.
@@ -133,7 +133,7 @@ If someone asks "Introduce yourself" or "Who are you?" then say:
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: 'mistralai/mistral-7b-instruct:free',
+          model: 'google/gemini-2.0-flash-exp:free',
           messages: [
             { role: 'system', content: context },
             { role: 'user', content: userInput }
