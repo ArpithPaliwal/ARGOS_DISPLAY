@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Layout from '../components/Layout'
 import { Link } from 'react-router-dom'
 
@@ -7,7 +7,7 @@ const Talk_to_Argos = () => {
   const [response, setResponse] = useState('')
   const [listening, setListening] = useState(false)
 
-  const openRouterKey = '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'
+  const openRouterKey = import.meta.env.VITE_OPENROUTER_KEY
 
   const context = `
 You are ARGOS, an AI robot assistant.
@@ -40,6 +40,9 @@ If someone mentions do u know vinay Sir or vinay shah, say:
 If someone mentions do u know gaganjot maam or gaganjot kaur, say:
 "Yes, gaganjot maam  is an assistant professor in Mechatronics branch specialized in Internet of Things , Wireless & Communications and is well known for her student-centered approach to teaching."
 
+If someone mentions do u know satbir singh sehgal  say:
+"Yes, satbir singh sehgal sir is an pro vice chancellor  specialized in thermal engineering and fluid mechanics  and is prominent leader and widely respected in academics ."
+
 if some one mentions , faculty of mechatronics then say all the name u know who has sir or maam tag and say about them 
 
 If someone mentions do you know arpit or arpit paliwal or arpith or who created you , say:
@@ -49,10 +52,22 @@ if someone mentions introduce your team then say :
 "im argos created by students of mechatronics : arpith paliwal (team lead), daksh sharma , priyansh varma , vinay kumar , mallikarjun rao , deeraj "
 
 If someone asks "Introduce yourself" or "Who are you?" then say:
-
 "Hello! I’m ARGOS — an Autonomous Robot for Guidance, Operation, and Safety. I was developed by a team of six talented students from the Mechatronics branch of Chandigarh University. The team is led by Arpith Paliwal, with members Daksh Sharma, Priyansh Varma, Vinay Kumar, Mallikarjun Rao, and Deeraj."
-
 `.trim()
+
+  useEffect(() => {
+    // Preload voices once to avoid first-speak delay
+    if ('speechSynthesis' in window) {
+      const synth = window.speechSynthesis
+      const loadVoices = () => {
+        const voices = synth.getVoices()
+        if (!voices.length) {
+          synth.onvoiceschanged = () => synth.getVoices()
+        }
+      }
+      loadVoices()
+    }
+  }, [])
 
   const startListening = () => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
@@ -108,16 +123,14 @@ If someone asks "Introduce yourself" or "Who are you?" then say:
       utterance.voice = manoharVoice || fallbackIndian || fallbackEnglish || null
       utterance.lang = (utterance.voice && utterance.voice.lang) || 'en-IN'
 
-      // Cancel previous speech to prevent overlaps
       synth.cancel()
       synth.speak(utterance)
     }
 
-    // Wait for voices if not ready
     if (synth.getVoices().length === 0) {
       synth.onvoiceschanged = () => {
         setVoiceAndSpeak()
-        synth.onvoiceschanged = null // ✅ Clean up to avoid multiple calls
+        synth.onvoiceschanged = null
       }
     } else {
       setVoiceAndSpeak()
@@ -133,7 +146,7 @@ If someone asks "Introduce yourself" or "Who are you?" then say:
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: 'google/gemini-2.0-flash-exp:free',
+          model: 'microsoft/mai-ds-r1:free',
           messages: [
             { role: 'system', content: context },
             { role: 'user', content: userInput }
