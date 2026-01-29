@@ -33,7 +33,19 @@ import Behindthevision from './pages/Behindthevision'
 
 function App() {
   
+ useEffect(() => {
+    const hasSeenWarning = localStorage.getItem("argosWarningSeen");
 
+    if (!hasSeenWarning) {
+      alert(
+        "Warning:\n\n" +
+        "This application is designed to run exclusively on the ARGOS robot display.\n\n" +
+        "When accessed on other screens or monitors, layout and scaling may appear different."
+      );
+
+      localStorage.setItem("argosWarningSeen", "true");
+    }
+  }, []);
   return (
     <div >
       
